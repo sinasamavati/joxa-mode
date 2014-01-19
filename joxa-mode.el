@@ -75,6 +75,10 @@
               "(\\(\\sw+\\))?")
      (1 font-lock-keyword-face)
      (2 font-lock-variable-name-face))
+
+    ;; atom
+    ("\\:\\(\\sw\\|\\s_\\)+\\(\\>\\|\\_>\\)" 0 font-lock-constant-face)
+
     ))
 
 (define-derived-mode joxa-mode lisp-mode "Joxa Editing Mode" "Major mode for editing Joxa files"
