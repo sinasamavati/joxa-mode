@@ -87,7 +87,12 @@
   (setq mode-name "Joxa")
   (set-syntax-table joxa-mode-syntax-table)
   (use-local-map joxa-mode-map)
-  (font-lock-add-keywords 'joxa-mode joxa-font-lock-keywords)
+  (setq-local font-lock-defaults
+              '(joxa-font-lock-keywords
+                nil nil (("+-*/.<>=!?$%_&~^:@" . "w")) nil
+                (font-lock-mark-block-function . mark-defun)
+                (font-lock-syntactic-face-function
+                 . lisp-font-lock-syntactic-face-function)))
   (run-hooks 'joxa-mode-hook))
 
 ;; autoload
