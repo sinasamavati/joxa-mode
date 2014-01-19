@@ -23,7 +23,7 @@
     (,(concat "("
               (regexp-opt '("module" "use" "ns" "case"
                             "catch" "require" "try*"
-                            "receive" "do") t)
+                            "receive" "when" "do") t)
               "\\>")
      (1 font-lock-keyword-face))
 
