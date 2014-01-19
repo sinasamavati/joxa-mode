@@ -1,0 +1,72 @@
+;; comment
+
+(ns my-ns
+    (require erlang
+             joxa-core))
+
+(deftype my-type
+  :string)
+
+(defn internal-fun ()
+  (let* (val val-expr ...) expr ...))
+
+(defn+ exported-fun ()
+  :do-something)
+
+(defmacro my-macro ()
+  :macro)
+
+(defmacro+ another-macro ()
+  :ok)
+
+(try* expr (catch (error-class error-type) catch-expr ...))
+
+(case expr
+  (pattern <optional-guard> expr ...)
+  ...)
+
+(receive <optional-after>
+         (pattern <optional-guard> expr ...)
+         ...)
+
+(do expr ...)
+
+(apply fun [args ...])
+
+(quote expr ...)
+;; 'expr
+;; :atom
+
+(string "values")
+
+(list expr ...)
+;; [expr ...]
+
+(tuple expr ...)
+;; {expr ...}
+
+(macroexpand-1 expr ...)
+
+(fn (arg ...) expr ...)
+
+;; ======
+
+(ns Joxa-exp-nmr-ns1)
+
+(defn+ final ()
+  :got-it)
+
+;; Forward declaration for ns2
+(defspec Joxa-exp-nmr-ns2/recurse-ns1 () (erlang/any))
+
+(defn+ recurse-ns2 ()
+  (joxa-test-nmr-ns2/recurse-ns1))
+
+;; ======
+
+(ns joxa-exp-nmr-ns2)
+
+(defspec joxa-exp-nmr-ns1/final () (erlang/any))
+
+(defn+ recurse-ns1 ()
+  (joxa-exp-nmr-ns1/final))
