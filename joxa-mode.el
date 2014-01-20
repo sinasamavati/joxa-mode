@@ -22,7 +22,7 @@
     ;; keywords
     (,(concat "("
               (regexp-opt '("module" "use" "ns" "case"
-                            "catch" "require" "try*"
+                            "try" "try*" "catch" "require"
                             "receive" "when" "do") t)
               "\\>")
      (1 font-lock-keyword-face))
@@ -87,12 +87,11 @@
   (setq mode-name "Joxa")
   (set-syntax-table joxa-mode-syntax-table)
   (use-local-map joxa-mode-map)
-  (setq-local font-lock-defaults
-              '(joxa-font-lock-keywords
-                nil nil (("+-*/.<>=!?$%_&~^:@" . "w")) nil
-                (font-lock-mark-block-function . mark-defun)
-                (font-lock-syntactic-face-function
-                 . lisp-font-lock-syntactic-face-function)))
+  (setq font-lock-defaults '(joxa-font-lock-keywords
+                             nil nil (("+-*/.<>=!?$%_&~^:@" . "w")) nil
+                             (font-lock-mark-block-function . mark-defun)
+                             (font-lock-syntactic-face-function
+                              . lisp-font-lock-syntactic-face-function)))
   (run-hooks 'joxa-mode-hook))
 
 ;; autoload
