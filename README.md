@@ -6,7 +6,7 @@ Joxa mode for Emacs.
 
 Clone it and add the following to your .emacs
 
-```emacs-lisp
+```lisp
 (add-to-list 'load-path "/path/to/joxa-mode")
 (require 'joxa-mode)
 ```
