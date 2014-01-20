@@ -17,69 +17,67 @@
     (set-keymap-parent map lisp-mode-shared-map) map))
 
 ;; syntax highlighting
-(defconst joxa-font-lock-keywords
-  `(
-    ;; keywords
-    (,(concat "("
-              (regexp-opt '("module" "use" "ns" "case"
-                            "try" "try*" "catch" "require"
-                            "receive" "when" "do") t)
-              "\\>")
-     (1 font-lock-keyword-face))
+(defvar joxa-font-lock-keywords
+  (eval-when-compile
+    `(
+      ;; keywords
+      (,(concat "("
+                (regexp-opt '("module" "use" "ns" "case"
+                              "try" "try*" "catch" "require"
+                              "receive" "when" "do") t)
+                "\\>")
+       (1 font-lock-keyword-face))
 
-    ;; BIFs
-    (,(concat "("
-              (regexp-opt '("$filename" "$namespace"
-                            "$line-number" "$function-name"
-                            "apply" "quote" "string" "list"
-                            "tuple" "binary" "error") t)
-              "\\>")
-     (1 font-lock-builtin-face))
+      ;; BIFs
+      (,(concat "("
+                (regexp-opt '("$filename" "$namespace"
+                              "$line-number" "$function-name"
+                              "apply" "quote" "string" "list"
+                              "tuple" "binary" "error") t)
+                "\\>")
+       (1 font-lock-builtin-face))
 
-    ;; function
-    (,(concat "("
-              (regexp-opt '("definline"
-                            "defn+"
-                            "defn"
-                            "fn") t)
-              "\\>"
-              ;; Any whitespace
-              "[ \r\n\t]*"
-              "\\(\\sw+\\)?")
-     (1 font-lock-keyword-face)
-     (2 font-lock-function-name-face nil t))
+      ;; functions
+      (,(concat "("
+                (regexp-opt '("definline" "defn+"
+                              "defn" "fn") t)
+                "\\>"
+                ;; Any whitespace
+                "[ \r\n\t]*"
+                "\\(\\sw+\\)?")
 
-    ;; type/spec
-    (,(concat "(" (regexp-opt '("deftype" "defspec") t) "\\>"
-              ;; Any whitespace
-              "[ \r\n\t]*"
-              "\\(\\sw+\\)?")
-     (1 font-lock-keyword-face)
-     (2 font-lock-type-face nil t))
+       (1 font-lock-keyword-face)
+       (2 font-lock-function-name-face nil t))
 
-    ;; macro
-    (,(concat "(" (regexp-opt '("defmacro" "defmacro+") t)
-              "\\>"
-              ;; Any whitespace
-              "[ \r\n\t]*"
-              "\\(\\sw+\\)?")
-     (1 font-lock-keyword-face)
-     (2 font-lock-constant-face))
+      ;; type/spec
+      (,(concat "(" (regexp-opt '("deftype" "defspec") t) "\\>"
+                ;; Any whitespace
+                "[ \r\n\t]*"
+                "\\(\\sw+\\)?")
+       (1 font-lock-keyword-face)
+       (2 font-lock-type-face nil t))
 
-    ;; variables
-    (,(concat "(" (regexp-opt '("let" "let*") t)
-              "\\>"
-              ;; Any whitespace
-              "[ \r\n\t]*"
-              ;; FIXME: highlight vars in let/let* expressions
-              "(\\(\\sw+\\))?")
-     (1 font-lock-keyword-face)
-     (2 font-lock-variable-name-face))
+      ;; macros
+      (,(concat "(" (regexp-opt '("defmacro" "defmacro+") t) "\\>"
+                ;; Any whitespace
+                "[ \r\n\t]*"
+                "\\(\\sw+\\)?")
+       (1 font-lock-keyword-face)
+       (2 font-lock-constant-face))
 
-    ;; atom
-    ("\\:\\(\\sw\\|\\s_\\)+\\(\\>\\|\\_>\\)" 0 font-lock-constant-face)
+      ;; variables
+      (,(concat "(" (regexp-opt '("let" "let*") t) "\\>"
+                ;; Any whitespace
+                "[ \r\n\t]*"
+                ;; FIXME: highlight vars in let/let* expressions
+                "(\\(\\sw+\\))?")
+       (1 font-lock-keyword-face)
+       (2 font-lock-variable-name-face))
 
-    ))
+      ;; atoms
+      ("\\:\\(\\sw\\|\\s_\\)+\\(\\>\\|\\_>\\)" 0 font-lock-constant-face)
+
+      )))
 
 (define-derived-mode joxa-mode lisp-mode "Joxa Editing Mode" "Major mode for editing Joxa files"
   (interactive)
@@ -94,7 +92,7 @@
                               . lisp-font-lock-syntactic-face-function)))
   (run-hooks 'joxa-mode-hook))
 
-;; autoload
+;;;###autoload
 (add-to-list 'auto-mode-alist '("\\.jxa\\'" . joxa-mode))
 
 (provide 'joxa-mode)
