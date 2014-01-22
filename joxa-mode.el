@@ -24,7 +24,7 @@
       (,(concat "("
                 (regexp-opt '("module" "use" "ns" "case"
                               "try" "try*" "catch" "require"
-                              "receive" "when" "do") t)
+                              "receive" "when" "do" "fn") t)
                 "\\>")
        (1 font-lock-keyword-face))
 
@@ -39,8 +39,7 @@
 
       ;; functions
       (,(concat "("
-                (regexp-opt '("definline" "defn+"
-                              "defn" "fn") t)
+                (regexp-opt '("definline" "defn+" "defn") t)
                 "\\>"
                 ;; Any whitespace
                 "[ \r\n\t]*"
