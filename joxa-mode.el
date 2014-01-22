@@ -89,6 +89,9 @@
                              (font-lock-mark-block-function . mark-defun)
                              (font-lock-syntactic-face-function
                               . lisp-font-lock-syntactic-face-function)))
+  ;; enable show-paren-mode
+  (make-variable-buffer-local 'show-paren-mode)
+  (show-paren-mode t)
   (run-hooks 'joxa-mode-hook))
 
 ;;;###autoload
