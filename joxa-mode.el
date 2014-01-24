@@ -24,11 +24,19 @@
     `(
       ;; keywords
       (,(concat "("
-                (regexp-opt '("module" "use" "ns" "case"
+                (regexp-opt '("module" "use" "case"
                               "try" "try*" "catch" "require"
                               "receive" "when" "do" "fn") t)
                 "\\>")
        (1 font-lock-keyword-face))
+
+      ;; namespace
+      (,(concat "(" (regexp-opt '("ns") t) "\\>"
+                ;; Any whitespace
+                "[ \r\n\t]*"
+                "\\(\\sw+\\)?")
+       (1 font-lock-keyword-face)
+       (2 font-lock-variable-name-face nil t))
 
       ;; BIFs
       (,(concat "("
