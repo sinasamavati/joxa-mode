@@ -24,9 +24,9 @@
     `(
       ;; keywords
       (,(concat "("
-                (regexp-opt '("module" "use" "case"
+                (regexp-opt '("use" "fn" "do" "case" "when"
                               "try" "try*" "catch" "require"
-                              "receive" "when" "do" "fn") t)
+                              "receive" "let" "let*") t)
                 "\\>")
        (1 font-lock-keyword-face))
 
@@ -59,7 +59,9 @@
        (2 font-lock-function-name-face nil t))
 
       ;; type/spec
-      (,(concat "(" (regexp-opt '("deftype" "defspec") t) "\\>"
+      (,(concat "("
+                (regexp-opt '("deftype" "deftype+" "defspec") t)
+                "\\>"
                 ;; Any whitespace
                 "[ \r\n\t]*"
                 "\\(\\sw+\\)?")
@@ -80,6 +82,13 @@
                 "[ \r\n\t]*"
                 ;; FIXME: highlight vars in let/let* expressions
                 "(\\(\\sw+\\))?")
+       (1 font-lock-keyword-face)
+       (2 font-lock-variable-name-face))
+      (,(concat "(" (regexp-opt '("define") t) "\\>"
+                ;; Any whitespace
+                "[ \r\n\t]*"
+                ;; FIXME: highlight vars in let/let* expressions
+                "\\(\\sw+\\)?")
        (1 font-lock-keyword-face)
        (2 font-lock-variable-name-face))
 
@@ -103,6 +112,22 @@
   (make-variable-buffer-local 'show-paren-mode)
   (show-paren-mode t)
   (run-hooks 'joxa-mode-hook))
+
+(put 'ns 'lisp-indent-function 1)
+(put 'definline 'lisp-indent-function 'defun)
+(put 'defn 'lisp-indent-function 'defun)
+(put 'defn+ 'lisp-indent-function 'defun)
+(put 'fn 'lisp-indent-function 1)
+(put 'defmacro 'lisp-indent-function 'defmacro)
+(put 'defmacro+ 'lisp-indent-function 'defmacro)
+(put 'define 'doc-string-elt 3)
+(put 'deftype 'lisp-indent-function 'defun)
+(put 'deftype+ 'lisp-indent-function 'defun)
+(put 'defspec 'lisp-indent-function 'defun)
+(put 'receive 'lisp-indent-function 0)
+(put 'try* 'lisp-indent-function 0)
+(put 'catch 'lisp-indent-function 1)
+(put 'do 'lisp-indent-function 0)
 
 ;;;###autoload
 (add-to-list 'auto-mode-alist '("\\.jxa\\'" . joxa-mode))
