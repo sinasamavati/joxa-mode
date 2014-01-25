@@ -128,6 +128,8 @@
 (put 'try* 'lisp-indent-function 0)
 (put 'catch 'lisp-indent-function 1)
 (put 'do 'lisp-indent-function 0)
+(put 'use 'lisp-indent-function 0)
+(put 'require 'lisp-indent-function 0)
 
 ;;;###autoload
 (add-to-list 'auto-mode-alist '("\\.jxa\\'" . joxa-mode))
