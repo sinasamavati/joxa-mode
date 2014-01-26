@@ -77,17 +77,9 @@
        (2 font-lock-constant-face))
 
       ;; variables
-      (,(concat "(" (regexp-opt '("let" "let*") t) "\\>"
-                ;; Any whitespace
-                "[ \r\n\t]*"
-                ;; FIXME: highlight vars in let/let* expressions
-                "(\\(\\sw+\\))?")
-       (1 font-lock-keyword-face)
-       (2 font-lock-variable-name-face))
       (,(concat "(" (regexp-opt '("define") t) "\\>"
                 ;; Any whitespace
                 "[ \r\n\t]*"
-                ;; FIXME: highlight vars in let/let* expressions
                 "\\(\\sw+\\)?")
        (1 font-lock-keyword-face)
        (2 font-lock-variable-name-face))
